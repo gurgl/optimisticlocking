@@ -23,14 +23,14 @@ public class UserController {
 		return userService.active(id, delay);
 	}
 
-	@RequestMapping("{id}/activeRefresh/{delay}")
-	public User activeRefresh(@PathVariable("id") Long id, @PathVariable("delay") Long delay) throws InterruptedException {
-		return userService.activeRefresh(id, delay);
-	}
-
 	@RequestMapping("{id}/activeByEntityManager/{delay}")
 	public User activeByEntityManager(@PathVariable("id") Long id, @PathVariable("delay") Long delay) throws InterruptedException {
 		return userService.activeByEntityManager(id, delay);
+	}
+
+	@RequestMapping("{id}/activeByRefreshEntity/{delay}")
+	public User activeRefresh(@PathVariable("id") Long id, @PathVariable("delay") Long delay) throws InterruptedException {
+		return userService.activeByRefreshEntity(id, delay);
 	}
 
 	@RequestMapping(value = "{id}", method = { RequestMethod.POST })

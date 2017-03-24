@@ -34,19 +34,6 @@ public class UserService {
 	}
 
 	@Transactional
-	public User activeRefresh(Long id, Long delay) throws InterruptedException {
-		User user = userRepository.findById(id);
-		user.setActive(false);
-		user.setUpdateDate(new Date());
-
-		LockModeType lock = entityManager.getLockMode(user);
-		System.out.println("### LOCK MODE TYPE ### " + lock);
-		entityManager.refresh(user);
-		Thread.sleep(delay);
-		return userRepository.save(user);
-	}
-
-	@Transactional
 	public User activeByEntityManager(Long id, Long delay) throws InterruptedException {
 		User user = entityManager.find(User.class, id, LockModeType.NONE);
 		user.setActive(false);
@@ -58,6 +45,19 @@ public class UserService {
 		Thread.sleep(delay);
 		entityManager.merge(user);
 		return user;
+	}
+
+	@Transactional
+	public User activeByRefreshEntity(Long id, Long delay) throws InterruptedException {
+		User user = userRepository.findById(id);
+		user.setActive(false);
+		user.setUpdateDate(new Date());
+
+		LockModeType lock = entityManager.getLockMode(user);
+		System.out.println("### LOCK MODE TYPE ### " + lock);
+		entityManager.refresh(user);
+		Thread.sleep(delay);
+		return userRepository.save(user);
 	}
 
 	public User save(User user) {

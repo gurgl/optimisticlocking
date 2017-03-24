@@ -46,7 +46,7 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void testOptimisticFailureException() {
+	public void testActiveByJpaRepository() {
 		List<Long> delayList = Lists.newArrayList(200L, 100L);
 
 		delayList.parallelStream().forEach(p -> {
@@ -61,24 +61,6 @@ public class UserControllerTest {
 			}
 		});
 	}
-
-	@Test
-	public void testRefreshEntity() {
-		List<Long> delayList = Lists.newArrayList(200L, 100L);
-
-		delayList.parallelStream().forEach(p -> {
-			try {
-				mockMvc.perform(get("/users/1/activeRefresh/" + p))
-						.andExpect(status().isOk())
-						.andDo(print())
-						.andReturn()
-				;
-			} catch (Exception e) {
-				Assert.fail();
-			}
-		});
-	}
-
 
 	@Test
 	public void testActiveByEntityManager() {
@@ -96,4 +78,24 @@ public class UserControllerTest {
 			}
 		});
 	}
+
+	@Test
+	public void testActiveByRefreshEntity() {
+		List<Long> delayList = Lists.newArrayList(200L, 100L);
+
+		delayList.parallelStream().forEach(p -> {
+			try {
+				mockMvc.perform(get("/users/1/activeByRefreshEntity/" + p))
+						.andExpect(status().isOk())
+						.andDo(print())
+						.andReturn()
+				;
+			} catch (Exception e) {
+				Assert.fail();
+			}
+		});
+	}
+
+
+
 }
