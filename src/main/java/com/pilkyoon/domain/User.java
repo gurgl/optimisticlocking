@@ -11,7 +11,7 @@ import java.util.Date;
 @Table
 //@OptimisticLocking(type = OptimisticLockType.NONE)
 @Entity(name = "user")
-public class User {
+public class User extends BaseEntity {
 
 	@Id
 	private Long id;

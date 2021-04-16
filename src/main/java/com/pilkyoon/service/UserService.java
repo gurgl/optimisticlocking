@@ -28,7 +28,7 @@ public class UserService {
 		user.setUpdateDate(new Date());
 
 		LockModeType lock = entityManager.getLockMode(user);
-		//entityManager.lock(user,LockModeType.NONE);
+		entityManager.lock(user,LockModeType.NONE);
 		System.out.println("### LOCK MODE TYPE ### " + lock);
 		Thread.sleep(delay);
 		return userRepository.save(user);
@@ -43,6 +43,7 @@ public class UserService {
 		LockModeType lock = entityManager.getLockMode(user);
 		System.out.println("### LOCK MODE TYPE ### " + lock);
 		Thread.sleep(delay);
+		entityManager.lock(user,LockModeType.NONE);
 		entityManager.merge(user);
 		return user;
 	}

@@ -3,6 +3,7 @@ package com.pilkyoon.controller;
 import com.pilkyoon.domain.User;
 import com.pilkyoon.repository.UserRepository;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,11 @@ public class UserControllerTest {
 		user.setActive(false);
 		user.setName("Mulan");
 		userRepository.save(user);
+	}
+
+	@AfterEach
+	public void tearDown() {
+		userRepository.deleteAll();
 	}
 
 	@Test
