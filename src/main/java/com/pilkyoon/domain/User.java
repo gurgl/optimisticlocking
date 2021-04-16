@@ -1,17 +1,21 @@
 package com.pilkyoon.domain;
 
+import org.hibernate.annotations.OptimisticLocking;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import java.util.Date;
 
 @Table
-@Entity(name = "user")
 //@OptimisticLocking(type = OptimisticLockType.NONE)
+@Entity(name = "user")
 public class User {
 
 	@Id
 	private Long id;
+
 
 	private String name;
 
